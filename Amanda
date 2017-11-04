@@ -1,0 +1,27 @@
+
+
+makeCacheMatrix<-function( y =matrix())           # function use to determine the inverse
+{
+	matrix<-NULL                                    # assign a variable as null. The variable will be the inverse
+	set<-function(x){                               #function use to capture new matrix in the environment.
+		y<<-x
+		matrix<<-NULL}
+	get <-function()y                               #function use to return the value of inverse
+	setInverse <- function(inverse)matrix <<- inverse   #assign the inverse to environment.
+	getInverse <-function() matrix                      # return value of matrix
+	list(set=set, get=get,setInverse=setInverse, getInverse=getInverse)
+}
+
+
+
+cacheMatrix <- function(y, ...)                      # function use to return matrix
+{                   
+        matrix <- y$getInverse()
+        if(!is.null(matrix)) {                       # setting condition to return the matrix
+                message("The inverse of the matrix is")
+                return(matrix) }
+        data <- y$get()
+        matrix <- inverse(data, ...)
+        y$setInverse(matrix)
+        matrix
+}
